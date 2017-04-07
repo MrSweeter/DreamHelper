@@ -1,0 +1,24 @@
+name: DreamHelper
+main: com.mrsweeter.dreamhelper.DreamHelper
+version: 1.0
+author: MrSweeter / SweetDream
+description: A helper bot
+
+commands:
+    dhreload:
+        description: Reload config !
+        usage: §c/dhreload
+    dhsubmit:
+        description: Submit a question !
+        usage: §c/dhsubmit <read / clear (number) / question (5 words min)>
+
+permissions: 
+    dreamhelper.reload:
+        description: Allow you to reload config of DreamHelper
+        default: op
+    dreamhelper.check:
+        description: Allows you to see if there are submission pending
+        default: op
+    dreamhelper.submit:
+        description: Allow you tu submit a question
+        default: true

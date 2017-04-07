@@ -1,0 +1,13 @@
+# Astuce: mettre au pluriel
+upGrades:
+  keywords: 'comment monter en grades'
+  question: 'Comment peut-on monter en grade ?'
+  answer: 'Pour monter en grade, il vous suffit de jouer et de vous inscrire sur &6wolnetwork.fr.'
+permNouveau:
+  keywords: 'quoi permissions grades quelles joueurs nouveaux'
+  question: 'Quelles permissions ai-je en tant que nouveau joueur ?'
+  answer: 'Vous pouvez utiliser /fly, /kit, /warp, etc. Plus d''info sur &6wolnetwork.fr.'
+staff:
+  keywords: 'staff admin qui combien recrutement'
+  question: 'Qui fait partie du staff ? Recrutez-vous ?'
+  answer: 'Le staff se compose de &6machin&b, &6truc &b et &6bidule&b. On ne recrute pas pour le moment !'
