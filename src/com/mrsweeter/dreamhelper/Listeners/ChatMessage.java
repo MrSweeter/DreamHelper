@@ -13,7 +13,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import com.mrsweeter.dreamhelper.DreamHelper;
-import com.mrsweeter.dreamhelper.PluginConfiguration;
+import com.mrsweeter.dreamhelper.Language;
+import com.mrsweeter.dreamhelper.Configuration.PluginConfiguration;
 
 public class ChatMessage implements Listener	{
 	
@@ -45,7 +46,6 @@ public class ChatMessage implements Listener	{
 				        
 			            @Override
 			            public void run() {
-			            	//p.sendMessage("§c[§aDreamhelper§c] §7Question suggérée: §8" + info.get("q"));
 			                pl.getServer().broadcastMessage("§4" + config.getString("bot-name").replace(DreamHelper.color, "§") + " " + info.get("a"));
 			            }
 			            
@@ -62,9 +62,9 @@ public class ChatMessage implements Listener	{
 	private void tellAnswer(Map<String, String> info, Player player)	{
 		
 		player.sendMessage("§a========== §eDreamHelper §a==========");
-		player.sendMessage("§aVous avez suggérer la question:");
+		player.sendMessage(Language.suggestQuestion);
 		player.sendMessage("§b" + info.get("q"));
-		player.sendMessage("§aRéponse:");
+		player.sendMessage(Language.answer);
 		player.sendMessage("§b" + info.get("a"));
 		player.sendMessage("§a================================");
 		
@@ -105,7 +105,7 @@ public class ChatMessage implements Listener	{
 		String[] strTab = str.split(" ");
 		
 		for (String s : strTab)	{
-			if (s.length() >= 3)	{
+			if (s.length() >= 2)	{
 				keys.add(s);
 			}
 		}

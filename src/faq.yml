@@ -1,13 +1,14 @@
-# Astuce: mettre au pluriel
+# Tip: plural and/or feminine is recommended
+# keywords must contains 3 words minimun to work
 upGrades:
-  keywords: 'comment monter en grades'
-  question: 'Comment peut-on monter en grade ?'
-  answer: 'Pour monter en grade, il vous suffit de jouer et de vous inscrire sur &6sweetdream.com&b.'
+  keywords: 'how can up ranks levels rise'
+  question: 'How can i up my rank ?'
+  answer: 'To rise in rank, it''s enough to be active.'
 permNouveau:
-  keywords: 'quoi permissions grades quelles joueurs nouveaux'
-  question: 'Quelles permissions ai-je en tant que nouveau joueur ?'
-  answer: 'Vous pouvez utiliser /fly, /kit, /warp, etc. Plus d''info sur &6sweetdream.com&b.'
+  keywords: 'which permissions have player new'
+  question: 'Which permissions have i as new player ?'
+  answer: 'You can use &6/dhsubmit <question>&b.'
 staff:
-  keywords: 'staff admin qui combien recrutement'
-  question: 'Qui fait partie du staff ? Recrutez-vous ?'
-  answer: 'Le staff se compose de &6machin&b, &6truc &b et &6bidule&b. On ne recrute pas pour le moment !'
+  keywords: 'staff admin who how much recruitment recruited'
+  question: 'Who is in staff ? Do you recruit ?'
+  answer: 'The staff is composed of MrSweeter and SweetDream. No recruitment !'

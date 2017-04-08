@@ -9,6 +9,8 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.mrsweeter.dreamhelper.Commands.Commands;
+import com.mrsweeter.dreamhelper.Configuration.Loader;
+import com.mrsweeter.dreamhelper.Configuration.PluginConfiguration;
 import com.mrsweeter.dreamhelper.Listeners.ChatMessage;
 import com.mrsweeter.dreamhelper.Listeners.JoinQuit;
 
@@ -25,10 +27,10 @@ public class DreamHelper extends JavaPlugin	{
 		configs.put("faq", new PluginConfiguration(this, "faq.yml", "faq.yml"));
 		configs.put("config", new PluginConfiguration(this, "preferences.yml", "preferences.yml"));
 		configs.put("submit", new PluginConfiguration(this, "submit.yml"));
+		configs.put("lang", new PluginConfiguration(this, "lang-message.yml", "lang-message.yml"));
 		
-		for (String str : configs.keySet()){
-			configs.get(str).reload();
-		}
+		Loader.loadAllConfig(configs);
+		Loader.loadLanguage(configs.get("lang"));
 		
 		color = configs.get("config").getString("color");
 		
@@ -39,10 +41,10 @@ public class DreamHelper extends JavaPlugin	{
 		getCommand("dhsubmit").setExecutor(new Commands(this));
 		
 		log.info(Color.GREEN + "=============== " + Color.YELLOW + "DreamHelper enable" + Color.GREEN + " ===============" + Color.RESET);
-//		Updater updater = new Updater(0);
-//		if (updater.checkUpdate(this.getDescription().getVersion()) && Updater.updateAvailable())	{
-//			log.warning(Color.RED + "=============== A newest version of DreamSkull is available ===============" + Color.RESET);
-//		}
+		Updater updater = new Updater(39072);
+		if (updater.checkUpdate(this.getDescription().getVersion()) && Updater.updateAvailable())	{
+			log.warning(Color.RED + "=============== A newest version of DreamSkull is available ===============" + Color.RESET);
+		}
 		
 	}
 	

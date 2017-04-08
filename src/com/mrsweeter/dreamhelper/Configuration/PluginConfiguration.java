@@ -1,4 +1,4 @@
-package com.mrsweeter.dreamhelper;
+package com.mrsweeter.dreamhelper.Configuration;
 
 import java.io.File;
 import java.io.IOException;

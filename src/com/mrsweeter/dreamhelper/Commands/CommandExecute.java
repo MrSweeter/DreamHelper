@@ -5,7 +5,8 @@ import java.util.List;
 import org.bukkit.command.CommandSender;
 
 import com.mrsweeter.dreamhelper.DreamHelper;
-import com.mrsweeter.dreamhelper.PluginConfiguration;
+import com.mrsweeter.dreamhelper.Language;
+import com.mrsweeter.dreamhelper.Configuration.PluginConfiguration;
 
 public class CommandExecute {
 
@@ -48,12 +49,12 @@ public class CommandExecute {
 		List<String> submissions = config.getStringList("submissions");
 		
 		if (num-1 >= submissions.size() || num-1 < 0)	{
-			sender.sendMessage("§c[§aDreamhelper§c] §7There is no submission §8" + num);
+			sender.sendMessage("§c[§aDreamhelper§c] " + Language.noSubmitNb + num);
 		} else {
 			submissions.remove(num-1);
 			config.set("submissions", submissions);
 			config.save();
-			sender.sendMessage("§c[§aDreamhelper§c] §7Submission §8" + num + " §7clear");
+			sender.sendMessage("§c[§aDreamhelper§c] " + Language.submitXClear + " (" + num + ")");
 		}
 	}
 }

@@ -1,13 +1,13 @@
 package com.mrsweeter.dreamhelper.Commands;
 
-import java.util.Map;
-
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import com.mrsweeter.dreamhelper.DreamHelper;
-import com.mrsweeter.dreamhelper.PluginConfiguration;
+import com.mrsweeter.dreamhelper.Language;
+import com.mrsweeter.dreamhelper.Configuration.Loader;
+import com.mrsweeter.dreamhelper.Configuration.PluginConfiguration;
 
 public class Commands implements CommandExecutor	{
 	
@@ -25,14 +25,12 @@ public class Commands implements CommandExecutor	{
 			case "dhreload":
 				if (sender.hasPermission("dreamhelper.reload"))	{
 					
-					Map<String, PluginConfiguration> configs = pl.getAllConfig();
-					for (String str : configs.keySet()){
-						configs.get(str).reload();
-					}
+					Loader.loadAllConfig(pl.getAllConfig());
+					Loader.loadLanguage(pl.getAllConfig().get("lang"));
 					
-					sender.sendMessage("§c[§aDreamhelper§c] §7Reload complete");
+					sender.sendMessage("§c[§aDreamhelper§c] " + Language.reload);
 				} else	{
-					sender.sendMessage("§cYou aren't allow do to this");
+					sender.sendMessage(Language.noPerm);
 				}
 				return true;
 			}
@@ -41,9 +39,9 @@ public class Commands implements CommandExecutor	{
 			case "dhsubmit":
 				if (sender.hasPermission("dreamhelper.submit"))	{
 					CommandExecute.addQuestion(args, pl);
-					sender.sendMessage("§c[§aDreamhelper§c] §7Question send, thank you for helping");
+					sender.sendMessage("§c[§aDreamhelper§c] " + Language.sendQuestion);
 				} else	{
-					sender.sendMessage("§cYou aren't allow do to this");
+					sender.sendMessage(Language.noPerm);
 				}
 				return true;
 			}
@@ -60,11 +58,11 @@ public class Commands implements CommandExecutor	{
 						config.set("submissions", null);
 						config.save();
 						
-						sender.sendMessage("§c[§aDreamhelper§c] §7submit.yml clear");
+						sender.sendMessage("§c[§aDreamhelper§c] " + Language.clearAllSubmit);
 						return true;
 					}
 				} else	{
-					sender.sendMessage("§cYou aren't allow do to this");
+					sender.sendMessage(Language.noPerm);
 				}
 			}
 		} else if (args.length == 2)	{
@@ -77,7 +75,7 @@ public class Commands implements CommandExecutor	{
 						return true;
 					}
 				} else	{
-					sender.sendMessage("§cYou aren't allow do to this");
+					sender.sendMessage(Language.noPerm);
 				}
 			}
 		}

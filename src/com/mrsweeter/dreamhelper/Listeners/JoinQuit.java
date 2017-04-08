@@ -6,6 +6,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import com.mrsweeter.dreamhelper.DreamHelper;
+import com.mrsweeter.dreamhelper.Language;
 
 public class JoinQuit implements Listener {
 
@@ -22,7 +23,7 @@ public class JoinQuit implements Listener {
 		int nb = pl.getAConfig("submit").getStringList("submissions").size();
 
 		if (p.hasPermission("dreamhelper.check") && nb > 0) {
-			p.sendMessage("§c[§aDreamhelper§c] §e" + nb + "§a submission(s) waiting §e/dhsubmit read");
+			p.sendMessage("§c[§aDreamhelper§c] §e" + nb + Language.submitConn);
 		}
 	}
 }
