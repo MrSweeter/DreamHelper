@@ -10,29 +10,51 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
+import com.mrsweeter.dreamhelper.DreamHelper;
 import com.mrsweeter.dreamhelper.PluginConfiguration;
 
 public class ChatMessage implements Listener	{
 	
 	PluginConfiguration faq;
+	PluginConfiguration config;
+	DreamHelper pl;
 	
-	public ChatMessage(PluginConfiguration faq)	{
+	public ChatMessage(PluginConfiguration faq, PluginConfiguration config, DreamHelper main)	{
 		
 		this.faq = faq;
+		this.config = config;
+		pl = main;
+		
 	}
 	
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent event)	{
 		
 		String msg = event.getMessage().toLowerCase();
+		Player p = event.getPlayer();
 		
-		if (msg.contains("?"))	{
+		if (msg.contains("?") || config.getBoolean("check-all-message"))	{
 			Map<String, String> info = findAnswer(msg);
 			
 			if (info != null)	{
-				event.setCancelled(true);
-				tellAnswer(info, event.getPlayer());
+				if (config.getBoolean("conversation-mode")){
+					
+					new BukkitRunnable() {
+				        
+			            @Override
+			            public void run() {
+			            	//p.sendMessage("§c[§aDreamhelper§c] §7Question suggérée: §8" + info.get("q"));
+			                pl.getServer().broadcastMessage("§4" + config.getString("bot-name").replace(DreamHelper.color, "§") + " " + info.get("a"));
+			            }
+			            
+			        }.runTaskLater(pl, 1);
+					
+				} else {
+					tellAnswer(info, p);
+					event.setCancelled(true);
+				}
 			}
 		}
 	}
@@ -59,8 +81,8 @@ public class ChatMessage implements Listener	{
 		
 		for (String key : faq.getKeys(false))	{
 			ConfigurationSection section = faq.getConfigurationSection(key);
-			question = section.getString("question").replace("&", "§");
-			answer = section.getString("answer").replace("&", "§");
+			question = section.getString("question").replace(DreamHelper.color, "§");
+			answer = section.getString("answer").replace(DreamHelper.color, "§");
 			counter = 0;
 			
 			for (String s : keywords)	{

@@ -1,5 +1,7 @@
 package com.mrsweeter.dreamhelper.Commands;
 
+import java.util.Map;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +24,12 @@ public class Commands implements CommandExecutor	{
 			switch (commandLabel)	{
 			case "dhreload":
 				if (sender.hasPermission("dreamhelper.reload"))	{
-					pl.reloadConfig();
+					
+					Map<String, PluginConfiguration> configs = pl.getAllConfig();
+					for (String str : configs.keySet()){
+						configs.get(str).reload();
+					}
+					
 					sender.sendMessage("§c[§aDreamhelper§c] §7Reload complete");
 				} else	{
 					sender.sendMessage("§cYou aren't allow do to this");
