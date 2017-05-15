@@ -1,15 +1,18 @@
 package com.mrsweeter.dreamhelper.Commands;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 
 import com.mrsweeter.dreamhelper.DreamHelper;
 import com.mrsweeter.dreamhelper.Language;
 import com.mrsweeter.dreamhelper.Configuration.Loader;
-import com.mrsweeter.dreamhelper.Configuration.PluginConfiguration;
 
-public class Commands implements CommandExecutor	{
+public class Commands implements CommandExecutor, TabCompleter	{
 	
 	private DreamHelper pl;
 
@@ -20,76 +23,61 @@ public class Commands implements CommandExecutor	{
 	@Override
 	public boolean onCommand(CommandSender sender, Command command, String commandLabel, String[] args) {
 		
-		if (args.length == 0)	{
+		if (sender.hasPermission(command.getPermission()))	{
+			commandLabel = command.getLabel();
 			switch (commandLabel)	{
 			case "dhreload":
-				if (sender.hasPermission("dreamhelper.reload"))	{
-					
-					Loader.loadAllConfig(pl.getAllConfig());
-					Loader.loadLanguage(pl.getAllConfig().get("lang"));
-					
-					sender.sendMessage("§c[§aDreamhelper§c] " + Language.reload);
-				} else	{
-					sender.sendMessage(Language.noPerm);
-				}
-				return true;
+				
+				Loader.loadAllConfig(pl.getAllConfig());
+				Loader.loadLanguage(pl.getAConfig("lang"));
+				DreamHelper.color = pl.getAConfig("config").getString("color");
+				DreamHelper.nbDay = pl.getAConfig("config").getInt("purge-timeDay-expiration");
+				Loader.loadTicket(pl, pl.getAConfig("config"));
+				sender.sendMessage(Language.prefix + Language.reload);
+				
+				break;
+			case "dhticket":
+				return TicketCommand.submit(pl, sender, args);
+			case "dhtickets":
+				return TicketCommand.seen(pl, sender, args);
+			case "dhtaketicket":
+				return TicketCommand.take(pl, sender, args);
+			case "dhcloseticket":
+				return TicketCommand.close(pl, sender, args);
+			case "dhreplyticket":
+				return TicketCommand.reply(pl, sender, args);
+			case "dhdeleteticket":
+				return TicketCommand.delete(pl, sender, args);
+			case "dhpurgetickets":
+				return TicketCommand.purge(pl, sender, args);
+			case "dhcheckticket":
+				return TicketCommand.check(pl, sender, args);
+			case "dhthelp":
+				return TicketCommand.help(pl, sender);
 			}
-		} else if (args.length >= 5)	{
-			switch (commandLabel)	{
-			case "dhsubmit":
-				if (sender.hasPermission("dreamhelper.submit"))	{
-					CommandExecute.addQuestion(args, pl);
-					sender.sendMessage("§c[§aDreamhelper§c] " + Language.sendQuestion);
-				} else	{
-					sender.sendMessage(Language.noPerm);
-				}
-				return true;
-			}
-		} else if (args.length == 1)	{
-			switch (commandLabel)	{
-			case "dhsubmit":
-				if (sender.hasPermission("dreamhelper.submit"))	{
-					if (args[0].equalsIgnoreCase("read"))	{
-						CommandExecute.tellSubmissions(sender, pl);
-						return true;
-					} else if (args[0].equalsIgnoreCase("clear"))	{
-						
-						PluginConfiguration config = pl.getAConfig("submit");
-						config.set("submissions", null);
-						config.save();
-						
-						sender.sendMessage("§c[§aDreamhelper§c] " + Language.clearAllSubmit);
-						return true;
-					}
-				} else	{
-					sender.sendMessage(Language.noPerm);
-				}
-			}
-		} else if (args.length == 2)	{
-			switch (commandLabel)	{
-			case "dhsubmit":
-				if (sender.hasPermission("dreamhelper.submit"))	{
-					if (args[0].equalsIgnoreCase("clear") && isInteger(args[1]))	{
-						
-						CommandExecute.removeSubmission(sender, pl, Integer.parseInt(args[1]));
-						return true;
-					}
-				} else	{
-					sender.sendMessage(Language.noPerm);
-				}
-			}
+		} else {
+			sender.sendMessage(Language.noPerm);
 		}
-		return false;
-		
-	}
-	
-	private boolean isInteger(String str) {
-		try {
-			Integer.parseInt(str);
-		} catch (NumberFormatException e){
-			return false;
-		}
- 
 		return true;
+	}
+
+	@Override
+	public List<String> onTabComplete(CommandSender sender, Command command, String commandLabel, String[] args) {
+		
+		List<String> complete = new ArrayList<>();
+		
+		switch (commandLabel)	{
+		case "dhticket":
+			complete =  pl.getAConfig("config").getStringList("ticket-prefix");
+			break;
+		case "dhtickets":
+		case "dhpurgetickets":
+			complete.add("-a");
+			complete.add("-c");
+			break;
+		}
+		
+		return complete;
+		
 	}
 }

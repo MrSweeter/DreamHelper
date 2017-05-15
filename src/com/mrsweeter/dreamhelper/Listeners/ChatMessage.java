@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,13 +20,13 @@ import com.mrsweeter.dreamhelper.Configuration.PluginConfiguration;
 public class ChatMessage implements Listener	{
 	
 	PluginConfiguration faq;
-	PluginConfiguration config;
+	FileConfiguration config;
 	DreamHelper pl;
 	
-	public ChatMessage(PluginConfiguration faq, PluginConfiguration config, DreamHelper main)	{
+	public ChatMessage(PluginConfiguration faq, FileConfiguration fileConfiguration, DreamHelper main)	{
 		
 		this.faq = faq;
-		this.config = config;
+		this.config = fileConfiguration;
 		pl = main;
 		
 	}
@@ -49,7 +50,7 @@ public class ChatMessage implements Listener	{
 			                pl.getServer().broadcastMessage("§4" + config.getString("bot-name").replace(DreamHelper.color, "§") + " " + info.get("a"));
 			            }
 			            
-			        }.runTaskLater(pl, 1);
+			        }.runTaskLater(pl, 5);
 					
 				} else {
 					tellAnswer(info, p);
@@ -76,7 +77,7 @@ public class ChatMessage implements Listener	{
 		
 		String question = "";
 		String answer = "";
-		List<String> keywords = toList3CharMin(msg);
+		List<String> keywords = toList2CharMin(msg);
 		int counter = 0;
 		
 		for (String key : faq.getKeys(false))	{
@@ -99,7 +100,7 @@ public class ChatMessage implements Listener	{
 		return null;
 	}
 	
-	private List<String> toList3CharMin(String str)	{
+	private List<String> toList2CharMin(String str)	{
 		
 		List<String> keys = new ArrayList<String>();
 		String[] strTab = str.split(" ");

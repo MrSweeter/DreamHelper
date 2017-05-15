@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
+// Based on
 // Logout400: https://www.spigotmc.org/threads/class-simple-custom-configs.51124/
 
 public class PluginConfiguration extends YamlConfiguration {
@@ -23,7 +24,11 @@ public class PluginConfiguration extends YamlConfiguration {
      * @param fileName - Name of the file
      */
     public PluginConfiguration(JavaPlugin plugin, String fileName) {
-        this(plugin, fileName, null);
+        this(plugin, fileName, null, null);
+    }
+    
+    public PluginConfiguration(JavaPlugin plugin, String fileName, String folder) {
+        this(plugin, fileName, null, folder);
     }
    
     /**
@@ -32,12 +37,18 @@ public class PluginConfiguration extends YamlConfiguration {
      * @param fileName - Name of the file
      * @param defaultsName - Name of the defaults
      */
-    public PluginConfiguration(JavaPlugin plugin, String fileName, String defaultsName) {
+    public PluginConfiguration(JavaPlugin plugin, String fileName, String defaultsName, String folder) {
         this.plugin = plugin;
         this.defaults = defaultsName;
-        this.file = new File(plugin.getDataFolder(), fileName);
+        if (folder != null)	{
+        	folder = "\\" + folder;
+        	this.file = new File(plugin.getDataFolder() + folder, fileName);
+        } else {
+        	this.file = new File(plugin.getDataFolder(), fileName);
+        }
         reload();
     }
+    
    
     /**
      * Reload configuration
@@ -59,7 +70,7 @@ public class PluginConfiguration extends YamlConfiguration {
        
         try {
             load(file);
-           
+            
             if (defaults != null) {
                 InputStreamReader reader = new InputStreamReader(plugin.getResource(defaults));
                 FileConfiguration defaultsConfig = YamlConfiguration.loadConfiguration(reader);       

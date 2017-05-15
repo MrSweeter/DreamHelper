@@ -1,6 +1,6 @@
 name: DreamHelper
 main: com.mrsweeter.dreamhelper.DreamHelper
-version: 1.1
+version: 2.0
 author: MrSweeter / SweetDream
 description: A helper bot
 
@@ -8,17 +8,40 @@ commands:
     dhreload:
         description: Reload config !
         usage: §c/dhreload
-    dhsubmit:
-        description: Submit a question !
-        usage: §c/dhsubmit <read / clear (number) / question (5 words min)>
-
-permissions: 
-    dreamhelper.reload:
-        description: Allow you to reload config of DreamHelper
-        default: op
-    dreamhelper.check:
-        description: Allows you to see if there are submission pending
-        default: op
-    dreamhelper.submit:
-        description: Allow you tu submit a question
-        default: true
+        permission: dreamhelper.reload
+    dhticket:
+        description: Submit a ticket !
+        usage: §c/dhticket <your message>
+        permission: dreamhelper.ticket.send
+    dhtickets:
+        description: Show all open tickets !
+        usage: §c/dhtickets -a/-c
+        permission: dreamhelper.ticket.seen
+    dhtaketicket:
+        description: Take a ticket !
+        usage: §c/dhtaketicket nb
+        permission: dreamhelper.ticket.take
+    dhcloseticket:
+        description: Close a question !
+        usage: §c/dhcloseticket nb
+        permission: dreamhelper.ticket.close
+    dhreplyticket:
+        description: Reply to a ticket !
+        usage: §c/dhreplyticket nb <reply>
+        permission: dreamhelper.ticket.reply
+    dhdeleteticket:
+        description: Delete a ticket from DB or config file !
+        usage: §c/dhdeleteticket nb
+        permission: dreamhelper.ticket.delete
+    dhpurgetickets:
+        description: Delete a ticket from DB or config file !
+        usage: §c/dhpurgeticket -a/-c
+        permission: dreamhelper.ticket.purge
+    dhcheckticket:
+        description: Check a ticket from DB or config file !
+        usage: §c/dhcheckticket nb
+        permission: dreamhelper.ticket.check
+    dhthelp:
+        description: See help for DreamHelper
+        usage: §c/dhhelp
+        permission: dreamhelper.ticket.help

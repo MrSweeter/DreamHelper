@@ -1,0 +1,26 @@
+color: '&'
+purge-timeDay-expiration: 7
+conversation-mode: true
+bot-name: '&r<&4Helper&r>&b'
+check-all-message: true
+
+ticket-prefix:
+- '[Admin]'
+- '[Modo]'
+help-staff:
+- '&a/dhticket&e: Send ticket to ask help'
+- '&a/dhcheckticket&e: Check a ticket'
+- '&a/dhtaketicket&e: Take a ticket, teleport to it'
+- '&a/dhcloseticket&e: Take a ticket after take it'
+- '&a/dhpurgetickets&e: Delete tickets (default: ticket old of 7d) -a (all) -c (closed)'
+- '&a/dhtickets&e: See tickets (default: open tickets) -a (all) -c (closed)'
+
+storage:
+  # Sql storage (full permissions user) if false storage in config file (tickets.yml)
+  sqlStorage:
+    enable: false
+    url: 'jdbc:mysql://'
+    host: 'localhost'
+    database: 'dreamhelper'
+    user: 'root'
+    password: ''
