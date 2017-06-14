@@ -16,5 +16,6 @@ public class Language {
 	public static String ticketDelete = "§6Ticket {ID} has been deleted";
 	public static String ticketReply = "§6You have reply to ticket {ID}";
 	public static String ticketTakedBy = "Your ticket has been taked by ";
+	public static String newTicket = "New ticket has been done";
 
 }

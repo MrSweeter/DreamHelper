@@ -64,6 +64,12 @@ public class TicketCommand {
 					Tickets.createTicket(p, args, pl.getSQL());
 				}
 				
+				for (Player pStaff : Bukkit.getOnlinePlayers())	{
+					if (pStaff.hasPermission("dreamhelper.ticket.take"))	{
+						pStaff.sendMessage(Language.newTicket);
+					}
+				}
+				
 			} else {
 				return false;
 			}

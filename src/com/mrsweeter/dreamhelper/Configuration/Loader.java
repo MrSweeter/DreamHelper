@@ -32,6 +32,7 @@ public class Loader {
 		Language.unknowID = lang.getString("unknow-id").replace(DreamHelper.color, "§");
 		Language.closedTicket = lang.getString("closedTicket").replace(DreamHelper.color, "§");
 		Language.ticketTakedBy = lang.getString("ticketTakeBy").replace(DreamHelper.color, "§");
+		Language.newTicket = lang.getString("newTicket").replace(DreamHelper.color, "§");
 		
 	}
 
