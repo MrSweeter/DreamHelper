@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
@@ -256,6 +257,12 @@ public class TicketCommand {
 				p.sendMessage("§9Assigned: §a" + playerAssigned);
 				p.sendMessage("§9Reply: §a" + reply);
 				p.sendMessage("§6--------- --------- ---------");
+				
+				Player ticketP = Bukkit.getPlayer(player);
+				if (ticketP instanceof Player)	{
+					ticketP.sendMessage(Language.ticketTakedBy + playerAssigned);
+				}
+				
 			} else {
 				return false;
 			}
